@@ -42,7 +42,7 @@
             font-weight: 700;
         }
 
-        /* Noise Texture Overlay */
+        /* Sobreposição de textura de ruído */
         .noise {
             position: fixed;
             top: 0;
@@ -55,7 +55,7 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Custom Cursor */
+        /* Cursor personalizado */
         .cursor {
             width: 20px;
             height: 20px;
@@ -79,7 +79,7 @@
             transition: transform 0.3s ease-out;
         }
 
-        /* Navigation */
+        /* Navegação */
         nav {
             position: fixed;
             top: 0;
@@ -138,7 +138,7 @@
             color: var(--accent);
         }
 
-        /* Hero Section */
+        /* Seção Hero */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -258,7 +258,7 @@
             }
         }
 
-        /* Floating Elements */
+        /* Elementos Flutuantes */
         .floating-tech {
             position: absolute;
             right: 10%;
@@ -295,7 +295,7 @@
             50% { transform: translateY(-20px); }
         }
 
-        /* Sections General */
+        /* Seções Gerais */
         section {
             padding: 6rem 5%;
             position: relative;
@@ -320,7 +320,7 @@
             margin-bottom: 1rem;
         }
 
-        /* About Section */
+        /* Sobre a seção */
         .about {
             background: var(--secondary);
             position: relative;
@@ -373,7 +373,7 @@
             margin-top: 0.5rem;
         }
 
-        /* Skills Section */
+        /* Seção de Habilidades */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -449,7 +449,7 @@
             color: var(--primary);
         }
 
-        /* Experience Timeline */
+        /* Linha do tempo da experiência */
         .experience {
             background: var(--secondary);
         }
@@ -537,7 +537,7 @@
             color: var(--accent);
         }
 
-        /* Projects Section */
+        /* Seção de Projetos */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -648,7 +648,7 @@
             font-size: 0.875rem;
         }
 
-        /* Contact Section */
+        /* Seção de contato */
         .contact {
             background: var(--secondary);
             text-align: center;
@@ -714,7 +714,7 @@
             }
         }
 
-        /* Scroll Progress */
+        /*Progresso da rolagem */
         .progress-bar {
             position: fixed;
             top: 0;
@@ -1047,7 +1047,7 @@
     </footer>
 
     <script>
-        // Custom Cursor
+        // Cursor personalizado
         const cursor = document.querySelector('.cursor');
         const follower = document.querySelector('.cursor-follower');
         
@@ -1069,7 +1069,7 @@
             cursor.style.transform = 'scale(1)';
         });
 
-        // Scroll Progress Bar
+        // Barra de progresso de rolagem
         window.addEventListener('scroll', () => {
             const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -1077,7 +1077,7 @@
             document.getElementById('progressBar').style.width = scrolled + '%';
         });
 
-        // Intersection Observer for animations
+        // Observador de Interseção para animações
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -1093,7 +1093,7 @@
 
         document.querySelectorAll('.timeline-item').forEach((el) => observer.observe(el));
 
-        // Smooth scroll for navigation links
+        // Rolagem suave para links de navegação
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1107,7 +1107,7 @@
             });
         });
 
-        // Parallax effect for hero
+        // Efeito de paralaxe para hero
         window.addEventListener('scroll', () => {
             const scrolled = window.pageYOffset;
             const heroBg = document.querySelector('.hero-bg');
