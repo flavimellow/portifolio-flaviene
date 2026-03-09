@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flaviene Melo | Full Stack Developer & TI Specialist</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a0a0a;
+            --secondary: #1a1a1a;
+            --accent: #00d4aa;
+            --accent-secondary: #ff6b6b;
+            --text: #f5f5f5;
+            --text-muted: #888;
+            --gradient-1: linear-gradient(135deg, #00d4aa 0%, #00a8e8 100%);
+            --gradient-2: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        /* Noise Texture Overlay */
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.1s;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(243, 107, 141, 0.1)
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9998;
+            transition: transform 0.3s ease-out;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s forwards;
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.2s forwards;
+        }
+
+        .hero-title span {
+            display: block;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.4s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s 0.6s forwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--text);
+        }
+
+        .btn-secondary:hover {
+            background: var(--text);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+
+        /* Floating Elements */
+        .floating-tech {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            opacity: 0.6;
+        }
+
+        .tech-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            animation: float 6s ease-in-out infinite;
+            backdrop-filter: blur(10px);
+        }
+
+        .tech-icon:nth-child(2) { animation-delay: 1s; }
+        .tech-icon:nth-child(3) { animation-delay: 2s; }
+        .tech-icon:nth-child(4) { animation-delay: 3s; }
+        .tech-icon:nth-child(5) { animation-delay: 4s; }
+        .tech-icon:nth-child(6) { animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sections General */
+        section {
+            padding: 6rem 5%;
+            position: relative;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+        }
+
+        .section-tag {
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            background: var(--secondary);
+            position: relative;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--primary);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--secondary);
+            padding: 2.5rem;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .skill-category:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 212, 170, 0.3);
+        }
+
+        .skill-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill-title {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .skill-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            transition: all 0.3s;
+        }
+
+        .skill-tag:hover {
+            background: var(--accent);
+            color: var(--primary);
+        }
+
+        /* Experience Timeline */
+        .experience {
+            background: var(--secondary);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--accent), transparent);
+        }
+
+        .timeline-item {
+            padding-left: 3rem;
+            padding-bottom: 3rem;
+            position: relative;
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: all 0.6s;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -6px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            background: var(--accent);
+            border-radius: 50%;
+            border: 3px solid var(--secondary);
+        }
+
+        .timeline-date {
+            color: var(--accent);
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .timeline-desc ul {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .timeline-desc li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-desc li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--secondary);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+        }
+
+        .project-image {
+            height: 200px;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.3s;
+        }
+
+        .project-link:hover {
+            gap: 1rem;
+        }
+
+        /* Certifications */
+        .certs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-secondary);
+            background: linear-gradient(135deg, var(--secondary) 0%, rgba(255, 107, 107, 0.1) 100%);
+        }
+
+        .cert-year {
+            color: var(--accent-secondary);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .cert-title {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .cert-issuer {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: var(--secondary);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 1rem;
+        }
+
+        .contact-text {
+            color: var(--text-muted);
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text);
+            text-decoration: none;
+            font-size: 1.125rem;
+            transition: color 0.3s;
+        }
+
+        .contact-item:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 5%;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .floating-tech {
+                display: none;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Scroll Progress */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            z-index: 1001;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="noise"></div>
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
+    <div class="progress-bar" id="progressBar"></div>
+
+    <nav>
+        <div class="logo">FM.</div>
+        <ul class="nav-links">
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#habilidades">Habilidades</a></li>
+            <li><a href="#experiencia">Experiência</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#certificacoes">Certificações</a></li>
+            <li><a href="#contato">Contato</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-subtitle">Full Stack Developer & TI Specialist</p>
+            <h1 class="hero-title">
+                Flaviene Melo
+                <span>Guimarães</span>
+            </h1>
+            <p class="hero-description">
+                Profissional de TI com foco em desenvolvimento web, infraestrutura de rede e automação de processos. 
+                Transformando desafios técnicos em soluções inovadoras no ambiente hospitalar e institucional.
+            </p>
+            <div class="hero-cta">
+                <a href="#projetos" class="btn btn-primary">Ver Projetos</a>
+                <a href="#contato" class="btn btn-secondary">Entrar em Contato</a>
+            </div>
+        </div>
+        <div class="floating-tech">
+            <div class="tech-icon">⚛️</div>
+            <div class="tech-icon">🐘</div>
+            <div class="tech-icon">🐍</div>
+            <div class="tech-icon">🌐</div>
+            <div class="tech-icon">🐧</div>
+            <div class="tech-icon">☁️</div>
+        </div>
+    </section>
+
+    <section id="sobre" class="about">
+        <div class="section-header">
+            <span class="section-tag">Sobre Mim</span>
+            <h2 class="section-title">Resumo Profissional</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>
+                    Formada em Tecnologia da Informação pela Estácio de Sá, combino expertise técnica em desenvolvimento 
+                    Full Stack com sólida experiência em infraestrutura de TI e suporte técnico.
+                </p>
+                <br>
+                <p>
+                    Atualmente atuo na Associação Municipal de Apoio Comunitário (AMAC), onde desenvolvo sistemas em WordPress, 
+                    implemento automações de processos e gerencio infraestrutura de rede. Minha atuação vai desde o front-end 
+                    criativo até a configuração de servidores Linux/Apache.
+                </p>
+                <br>
+                <p>
+                    Possuo perfil analítico e proativo, com foco em resolver problemas complexos através de tecnologia, 
+                    sempre buscando otimização de performance e eficiência operacional.
+                </p>
+            </div>
+            <div class="about-stats">
+                <div class="stat-card">
+                    <div class="stat-number">4+</div>
+                    <div class="stat-label">Anos de Experiência</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Certificações</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projetos Entregues</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Disponibilidade</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="habilidades">
+        <div class="section-header">
+            <span class="section-tag">Expertise</span>
+            <h2 class="section-title">Habilidades Técnicas</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <div class="skill-icon">💻</div>
+                <h3 class="skill-title">Desenvolvimento Front-end</h3>
+                <ul class="skill-list">
+                    <li class="skill-tag">HTML5</li>
+                    <li class="skill-tag">CSS3</li>
+                    <li class="skill-tag">JavaScript</li>
+                    <li class="skill-tag">React</li>
+                    <li class="skill-tag">UX/UI</li>
+                    <li class="skill-tag">SEO</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <div class="skill-icon">⚙️</div>
+                <h3 class="skill-title">Back-end & Banco de Dados</h3>
+                <ul class="skill-list">
+                    <li class="skill-tag">PHP</li>
+                    <li class="skill-tag">MySQL</li>
+                    <li class="skill-tag">Python</li>
+                    <li class="skill-tag">WordPress</li>
+                    <li class="skill-tag">APIs REST</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <div class="skill-icon">🖥️</div>
+                <h3 class="skill-title">Infraestrutura & Redes</h3>
+                <ul class="skill-list">
+                    <li class="skill-tag">Linux</li>
+                    <li class="skill-tag">Apache</li>
+                    <li class="skill-tag">LAN/Wi-Fi</li>
+                    <li class="skill-tag">CCNA</li>
+                    <li class="skill-tag">Servidores</li>
+                    <li class="skill-tag">Segurança</li>
+                </ul>
+            </div>
+            <div class="skill-category">
+                <div class="skill-icon">🛠️</div>
+                <h3 class="skill-title">Ferramentas & Automação</h3>
+                <ul class="skill-list">
+                    <li class="skill-tag">Git/GitHub</li>
+                    <li class="skill-tag">Google Workspace</li>
+                    <li class="skill-tag">Forms/Docs</li>
+                    <li class="skill-tag">ERP</li>
+                    <li class="skill-tag">Scrum</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experiencia" class="experience">
+        <div class="section-header">
+            <span class="section-tag">Trajetória</span>
+            <h2 class="section-title">Experiência Profissional</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2021 - Presente</div>
+                <h3 class="timeline-title">Desenvolvedor Full Stack</h3>
+                <div class="timeline-company">Associação Municipal de Apoio Comunitário (AMAC)</div>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Desenvolvimento e manutenção de sistemas e sites em WordPress</li>
+                        <li>Criação de interfaces responsivas com HTML, CSS, JavaScript e React</li>
+                        <li>Integração com banco de dados MySQL e customização de queries</li>
+                        <li>Automação de relatórios e fichas em Google Forms e Word</li>
+                        <li>Configuração de ambiente e otimização de performance em servidores Apache/Linux</li>
+                        <li>Suporte técnico a sistemas internos e usuários</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2021 - Presente</div>
+                <h3 class="timeline-title">Suporte Técnico / Help Desk</h3>
+                <div class="timeline-company">AMAC - Infraestrutura de TI</div>
+                <div class="timeline-desc">
+                    <ul>
+                        <li>Atendimento a usuários e manutenção de estações de trabalho</li>
+                        <li>Instalação e configuração de redes LAN/Wi-Fi</li>
+                        <li>Diagnóstico e correção de falhas em hardware e software</li>
+                        <li>Monitoramento de infraestrutura e backups</li>
+                        <li>Suporte a sistemas administrativos ERP (Mastermaq)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projetos">
+        <div class="section-header">
+            <span class="section-tag">Portfólio</span>
+            <h2 class="section-title">Projetos Relevantes</h2>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-image">🏛️</div>
+                <div class="project-content">
+                    <h3 class="project-title">Site Institucional AMAC</h3>
+                    <p class="project-desc">
+                        Desenvolvimento completo do site institucional em WordPress para instituição pública do terceiro setor. 
+                        Estrutura voltada à comunicação pública, transparência e acessibilidade.
+                    </p>
+                    <ul style="list-style: none; margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                        <li>✓ Layout responsivo e otimizado</li>
+                        <li>✓ Seções dinâmicas de notícias</li>
+                        <li>✓ Galerias personalizadas</li>
+                        <li>✓ Automação de atualizações</li>
+                    </ul>
+                    <a href="https://amac.org.br" target="_blank" class="project-link">Visitar Site →</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background: var(--gradient-2);">⚡</div>
+                <div class="project-content">
+                    <h3 class="project-title">Automação de Processos</h3>
+                    <p class="project-desc">
+                        Implementação de soluções de automação para otimização de tarefas administrativas, 
+                        integrando Google Forms, planilhas e documentos Word para geração automática de relatórios.
+                    </p>
+                    <ul style="list-style: none; margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                        <li>✓ Redução de 70% no tempo de processamento</li>
+                        <li>✓ Integração com banco de dados MySQL</li>
+                        <li>✓ Geração automática de documentos</li>
+                    </ul>
+                    <span class="project-link">Projeto Interno</span>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">🌐</div>
+                <div class="project-content">
+                    <h3 class="project-title">Infraestrutura de Rede</h3>
+                    <p class="project-desc">
+                        Configuração e manutenção de infraestrutura de rede completa, incluindo servidores Apache/Linux, 
+                        redes LAN/Wi-Fi corporativas e sistemas de backup automatizados.
+                    </p>
+                    <ul style="list-style: none; margin-bottom: 1rem; color: var(--text-muted); font-size: 0.9rem;">
+                        <li>✓ Configuração CCNA</li>
+                        <li>✓ Servidores Linux/Apache</li>
+                        <li>✓ Monitoramento 24/7</li>
+                    </ul>
+                    <span class="project-link">Infraestrutura Crítica</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificacoes" class="experience">
+        <div class="section-header">
+            <span class="section-tag">Qualificações</span>
+            <h2 class="section-title">Certificações & Cursos</h2>
+        </div>
+        <div class="certs-grid">
+            <div class="cert-card">
+                <span class="cert-year">2025</span>
+                <h4 class="cert-title">Curso Python</h4>
+                <span class="cert-issuer">Santander Open Academy</span>
+            </div>
+            <div class="cert-card">
+                <span class="cert-year">2025</span>
+                <h4 class="cert-title">Implementação Sistema Mastermaq ERP</h4>
+                <span class="cert-issuer">Keevo</span>
+            </div>
+            <div class="cert-card">
+                <span class="cert-year">2025</span>
+                <h4 class="cert-title">WordPress Avançado</h4>
+                <span class="cert-issuer">Alura</span>
+            </div>
+            <div class="cert-card">
+                <span class="cert-year">2025</span>
+                <h4 class="cert-title">Imersão Dados com Python</h4>
+                <span class="cert-issuer">Alura</span>
+            </div>
+            <div class="cert-card">
+                <span class="cert-year">2023</span>
+                <h4 class="cert-title">Desenvolvimento Front-end com React</h4>
+                <span class="cert-issuer">Origamid</span>
+            </div>
+            <div class="cert-card">
+                <span class="cert-year">2023</span>
+                <h4 class="cert-title">Scrum e Métodos Ágeis</h4>
+                <span class="cert-issuer">DIO</span>
+            </div>
+            <div class="cert-card">
+                <span class="cert-year">2022</span>
+                <h4 class="cert-title">BOOTCAMP CCNA</h4>
+                <span class="cert-issuer">Cisco</span>
+            </div>
+            <div class="cert-card">
+                <span class="cert-year">2022</span>
+                <h4 class="cert-title">PHP e MySQL para Web</h4>
+                <span class="cert-issuer">Udemy</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="contact">
+        <div class="contact-content">
+            <span class="section-tag">Vamos Conversar</span>
+            <h2 class="contact-title">Pronta para novos desafios</h2>
+            <p class="contact-text">
+                Estou disponível para oportunidades na área de Tecnologia da Informação, 
+                com foco em desenvolvimento web, infraestrutura e automação de processos.
+            </p>
+            <div class="contact-links">
+                <a href="mailto:flavimellow@gmail.com" class="contact-item">
+                    <span>📧</span> flavimellow@gmail.com
+                </a>
+                <a href="tel:+5532988863941" class="contact-item">
+                    <span>📱</span> (32) 98886-3941
+                </a>
+                <a href="https://linkedin.com/in/flaviene-melo-bb774a216" target="_blank" class="contact-item">
+                    <span>💼</span> LinkedIn
+                </a>
+            </div>
+            <div style="margin-top: 3rem; padding: 2rem; background: var(--primary); border-radius: 20px; display: inline-block;">
+                <p style="color: var(--text-muted); margin-bottom: 0.5rem;">📍 Localização</p>
+                <p style="font-size: 1.25rem; font-weight: 600;">Juiz de Fora, MG - Brasil</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Flaviene Melo Guimarães. Todos os direitos reservados.</p>
+        <p style="margin-top: 0.5rem; font-size: 0.875rem;">Desenvolvido com 💚 e muito ☕</p>
+    </footer>
+
+    <script>
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const follower = document.querySelector('.cursor-follower');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                follower.style.left = e.clientX - 10 + 'px';
+                follower.style.top = e.clientY - 10 + 'px';
+            }, 100);
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'scale(0.8)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'scale(1)';
+        });
+
+        // Scroll Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.timeline-item').forEach((el) => observer.observe(el));
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Parallax effect for hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg) {
+                heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
